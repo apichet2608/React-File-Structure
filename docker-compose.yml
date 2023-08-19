@@ -1,0 +1,18 @@
+version: "3"
+services:
+  frontend:
+    container_name: Smart-Project
+    build:
+      context: . # ใช้โฟลเดอร์ปัจจุบันในการสร้าง Docker image
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # เปิดพอร์ต 8080 บนโฮสต์เพื่อรับการเชื่อมต่อเข้ากับแอปพลิเคชัน React
+    volumes:
+      - ./dist:/usr/share/nginx/html # แมพโฟลเดอร์ dist ของ React เข้ากับโฟลเดอร์ /usr/share/nginx/html ของ Nginx
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf # แมพไฟล์ nginx.conf เข้ากับ /etc/nginx/conf.d/default.conf
+    restart: always # ให้เริ่มต้นรันคอนเทนเนอร์ใหม่เสมอหากเกิดข้อผิดพลาดหรือมีการเปลี่ยนแปลง
+
+# update
+# npm run build
+# docker-compose build
+# docker-compose up -d
